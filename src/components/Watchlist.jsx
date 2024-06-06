@@ -26,8 +26,6 @@ function Watchlist({ watchList, handleRemoveFromWatchList, setWatchList }) {
     let temp = watchList.map((movie) => {
       return genreIds[movie.genre_ids[0]];
     });
-    console.log(temp);
-    console.log(genreList);
     temp = new Set(temp);
     setGenreList(["All genres", ...temp]);
   }, [watchList]);
@@ -39,18 +37,20 @@ function Watchlist({ watchList, handleRemoveFromWatchList, setWatchList }) {
     <>
       <div className="flex justify-center pt-5">
         {genreList.map((genre) => {
-          return (
-            <button
-              onClick={() => handleFilter(genre)}
-              className={
-                currentGenre == genre
-                  ? "bg-blue-500 mx-2 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
-                  : "bg-gray-500 mx-2 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
-              }
-            >
-              {genre}
-            </button>
-          );
+          if (genre) {
+            return (
+              <button
+                onClick={() => handleFilter(genre)}
+                className={
+                  currentGenre == genre
+                    ? "bg-blue-500 mx-2 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
+                    : "bg-gray-500 mx-2 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
+                }
+              >
+                {genre}
+              </button>
+            );
+          }
         })}
       </div>
       <div className="flex justify-center outline-no mt-4  ">
@@ -113,7 +113,7 @@ function Watchlist({ watchList, handleRemoveFromWatchList, setWatchList }) {
                     </td>
                     <td>{movieObj.vote_average}</td>
                     <td>{movieObj.popularity}</td>
-                    <td>{genreIds[movieObj.genre_ids[0]]}</td>
+                    <td>{genreIds[movieObj.genre_ids[0]] ?? "--"}</td>
                     <td>
                       <button
                         onClick={() => handleRemoveFromWatchList(movieObj)}

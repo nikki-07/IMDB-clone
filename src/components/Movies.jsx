@@ -17,7 +17,6 @@ function Movies({
         `https://api.themoviedb.org/3/tv/popular?api_key=56f82d659ce1b62802d827aaea365b3c&language=en-US&page=${pageNumber}`
       )
       .then((res) => {
-        // console.log(res.data.results);
         setMovie(res.data.results);
       });
   });
