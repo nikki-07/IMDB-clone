@@ -19,7 +19,7 @@ function Movies({
       .then((res) => {
         setMovie(res.data.results);
       });
-  });
+  }, []);
 
   function handlePrevious() {
     if (pageNumber > 1) {

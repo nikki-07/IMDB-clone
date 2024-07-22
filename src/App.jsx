@@ -5,6 +5,7 @@ import Navbar from "./components/Navbar";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Watchlist from "./components/Watchlist";
 import { useEffect, useState } from "react";
+import "bootstrap/dist/css/bootstrap.min.css";
 function App() {
   let [watchList, setWatchList] = useState([]);
 
