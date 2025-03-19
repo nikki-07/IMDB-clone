@@ -1,50 +1,45 @@
 /* eslint-disable react/prop-types */
 
 function MovieCard({
-  poster_path,
-  original_name,
-  handleAddToWatchList,
   movie,
+  handleAddToWatchList,
   handleRemoveFromWatchList,
   watchList,
 }) {
-  function doesContain(movie) {
-    for (let i = 0; i < watchList.length; i++) {
-      if (watchList[i].id == movie.id) {
-        return true;
-      }
-    }
-    return false;
+  function isInWatchList(movie) {
+    return watchList.some((item) => item.id === movie.id);
   }
+
   return (
-    <div>
+    <div className="bg-gray-800 p-3 rounded-lg shadow-lg">
       <div
-        className="h-[40vh] w-[200px] bg-center bg-cover flex flex-col justify-between items-end rounded-xl hover:cursor-pointer hover:scale-110 duration-300"
+        className="h-[40vh] w-[200px] bg-center bg-cover flex flex-col justify-between items-end rounded-lg hover:scale-110 transition-transform duration-300 shadow-lg"
         style={{
-          backgroundImage: `url(https://image.tmdb.org/t/p/original${poster_path})`,
+          backgroundImage: `url(https://image.tmdb.org/t/p/original${movie.poster_path})`,
         }}
       >
-        {doesContain(movie) ? (
+        <div className="bg-black/60 w-full text-white text-center py-1 rounded-b-lg">
+          {movie.original_title || movie.name}
+        </div>
+
+        {isInWatchList(movie) ? (
           <div
-            className="flex justify-center items-center rounded text-xl m-4 bg-gray-900/60 h-8 w-8"
+            className="flex justify-center items-center text-xl m-4 bg-red-600 hover:bg-red-800 text-white rounded-full h-8 w-8 cursor-pointer transition-colors duration-200"
             onClick={() => handleRemoveFromWatchList(movie)}
           >
-            &#10060;;
+            &#10060;
           </div>
         ) : (
           <div
-            className="flex justify-center items-center rounded text-xl m-4 bg-gray-900/60 h-8 w-8"
+            className="flex justify-center items-center text-xl m-4 bg-green-600 hover:bg-green-800 text-white rounded-full h-8 w-8 cursor-pointer"
             onClick={() => handleAddToWatchList(movie)}
           >
             &#128525;
           </div>
         )}
-
-        <div className="bg-gray-900/60 items-end  text-white p-2 w-full text-center">
-          {original_name}
-        </div>
       </div>
     </div>
   );
 }
+
 export default MovieCard;
